@@ -2,12 +2,13 @@ package com.company;
 
 import java.util.Arrays;
 
-public class DirectAdressArray<T> {
+public class DictionaryDirectAddress<T> {
 
     private int size;
+    private int elemAmount;
     private T[] array;
 
-    public DirectAdressArray(int size) {
+    public DictionaryDirectAddress(int size) {
         this.size = size;
         array =  (T[]) new Object[size];
     }
@@ -26,10 +27,11 @@ public class DirectAdressArray<T> {
         size = newSize+1;
     }
 
-    public void add(int key, T elem) {
+    public void put(int key, T elem) {
         if(key >= size)
             expand(key);
         array[key] = elem;
+        elemAmount++;
     }
 
     public T get(int key) {
@@ -45,6 +47,7 @@ public class DirectAdressArray<T> {
 
         T res = array[key];
         array[key] = null;
+        --elemAmount;
         return res;
     }
 
@@ -54,5 +57,9 @@ public class DirectAdressArray<T> {
         if(array[key] != null)
             return true;
         return false;
+    }
+
+    public int size() {
+        return elemAmount;
     }
 }
